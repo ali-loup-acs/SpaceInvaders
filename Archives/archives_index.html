@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Space Invader 404</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <span id="score">SCORE : 999</span><span id="life">LIVES : 3</span>
+      </header>
+      <div id="gameArea">
+        <div id="blockAliens">
+          <div id="row1" class="alien30">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div id="row2" class="alien20">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div id="row3" class="alien20">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div id="row4" class="alien10">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div id="row5" class="alien10">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div id="missiles"></div>
+        <div id="shooterArea">
+          <div id="shooter"></div>
+        </div>
+      </div>
+      <footer>
+        <span>NEW</span><span>EXIT</span>
+      </footer>
+    </main>
+
+
+
+    <script>
+      
+    var missilesTop=0;
+
+    function ftMissile(object){
+      /*alert(object.keyCode);*/
+
+
+      /*detect if left key is pushed*/
+      if (object.keyCode==38) 
+        {
+          missilesTop+=1;
+          console.log(missilesTop);
+          document.getElementById('missiles').style.top=missilesTop+'%';
+          
+          /*collision detection*/
+          if (missilesTop<=0) 
+            {
+              missilesTop+=4;
+            }
+        }
+    }
+
+    document.onkeydown=ftMissile;
+
+    </script>
+
+
+  </body>
+</html>

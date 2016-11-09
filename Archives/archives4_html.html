@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Space Invaders 404</title>
+    <meta name="description" content="space invader game">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <script>
+
+      var positionShooter; 
+      var positionMissile;
+      var positionBlockAliens;
+      var blockAliens;
+      var shooterArea;
+      var stop;
+      var sens = true; // sens du mouvement true à droite false à gauche
+
+      window.onload = function() {
+          positionMissile=document.getElementById('missiles');
+          positionShooter=document.getElementById('shooter');
+          blockAliens = document.getElementById('blockAliens');// le bloc d'alien
+          shooterArea = document.getElementById('shooterArea');
+          moveBlockAliens();
+         /* positionBlockAliens=document.getElementById('blockAliens');*/
+        }
+
+        
+        function moveBlockAliens(){
+          /*------------------------initialisation---------------------*/
+          blockAliens.style.left='12.5%';//initialisation
+          blockAliens.style.height='50%';//initialisation
+          blockAliens.style.top='0%';
+          shooterArea.style.top= '39%';
+          /*------------------------fin-initialisation---------------------*/
+          stop = setInterval(movingBlockAliens,40);// var row = document.getElementById('row1').children[0];
+
+          // var blockAliens = document.getElementById('blockAliens');
+          // var moveW = parseInt(window.getComputedStyle(row,null).getPropertyValue('width'));//déplacement du bloc en largeur
+          // var moveH = window.getComputedStyle(row,null).getPropertyValue('height');// déplacement du bloc en hauteur
+          // var top = window.getComputedStyle(blockAliens,null).getPropertyValue('top');
+          // var left = window.getComputedStyle(blockAliens,null).getPropertyValue('left');
+        }
+        function movingBlockAliens(){
+          var seuil = parseInt(shooterArea.style.top); //seuil limite
+          var MOVEH = 1; // déplacement hauteur en % du bloc alien
+          var MOVEW = 0.5;// déplacement horizontal en % du bloc alien
+          // console.log(seuil);
+          if (sens) {
+            if( parseInt(blockAliens.style.left) >= 25){//à vérifier on suppose que l'égalité fonctionne
+              blockAliens.style.top = parseFloat(blockAliens.style.top)+MOVEH+'%';
+              if (parseInt(blockAliens.style.top) >= 39) {
+                clearInterval(stop);// GAME OVER
+              }
+              sens = false;
+            }else {
+              blockAliens.style.left =  parseFloat(blockAliens.style.left)+MOVEW+'%';
+            }
+          }else {
+            if( parseFloat(blockAliens.style.left) <= 0){//à vérifier on suppose que l'égalité fonctionne
+              blockAliens.style.top = parseFloat(blockAliens.style.top)+MOVEH+'%';
+              if (parseInt(blockAliens.style.top) >= 39) {
+                clearInterval(stop); // GAME OVER
+              }
+              sens = true;
+            }else {
+              blockAliens.style.left = parseFloat(blockAliens.style.left)-MOVEW+'%';
+            }
+          }
+          // stopRight = setInterval(moveBlockRight,100);
+        }
+       
+        /*FONCTIONS DU SHOOTER*/
+
+        document.onkeydown=ftShooter;
+        var shooterLeft=0; 
+
+        function ftShooter(object)
+          {
+            /*alert(object.keyCode);*/
+
+            /*detect if left key is pushed*/
+            if (object.keyCode==37)
+              { 
+
+                shooterLeft-=1;
+                /*console.log(shooterLeft);*/
+                positionShooter.style.left=shooterLeft+'%';
+                /*collision detection*/
+                if (shooterLeft<=0) 
+                  {
+                    shooterLeft+=1;
+                  }
+
+              }
+
+            /*detect if right key is pushed*/
+            if (object.keyCode==39) 
+              {
+
+                shooterLeft+=1;
+                console.log(shooterLeft);
+                positionShooter.style.left=shooterLeft+'%';
+                /*collision detection*/
+                if (shooterLeft>=95) 
+                  {
+                    shooterLeft-=1;
+                  }
+              }
+          }
+
+
+/*FONCTIONS DU MISSILE */
+
+    document.onkeyup=ftMissile;
+
+    var missileStart;
+    var stopMissile;
+    var missileStartY=80;
+    var missileStartX;
+
+    function ftMissile(object)
+      {
+        missileStartX=positionShooter.style.left;
+        if (object.keyCode==38) 
+          {
+              positionMissile.style.left=missileStartX;
+              stopMissile = setInterval(timerMissile, 5);
+          }
+      }
+
+
+    function timerMissile()
+      {
+        missileStartY-=1;
+        positionMissile.style.top=missileStartY+'%';
+        console.log(positionMissile.style.top);
+
+
+        if(parseInt(positionMissile.style.top) <=0)
+          {
+            clearInterval(stopMissile);
+            /*Clear the missile if top of containe achieved*/
+            /*positionMissile.classList.add('noDisplays');*/
+          }    
+      }
+
+      /* CREATION DE MISSILES MULTIPLES (NUKE) */
+
+
+document.onkeypress=ftNuke;
+
+var nukeStartY=85;
+var count=0;
+
+
+function ftNuke(object)
+  {
+    nukeStartX=positionShooter.style.left;
+    if (object.keyCode==32)
+      {
+        var newnuke = document.createElement("div");
+        var gameArea = document.getElementById("gameArea");
+        gameArea.appendChild(newnuke);
+        newnuke.classList.add("nukestyle");
+        newnuke.style.top=nukeStartY+'%';
+        newnuke.style.left=nukeStartX;
+        // console.log(document.getElementsByClassName('nukestyle'));
+       
+        if(count==0)
+          {
+            stopNuke=setInterval(timerNuke, 50);
+          } 
+      }
+  }
+
+
+  function timerNuke()
+    { 
+
+      var gameArea = document.getElementById("gameArea");
+      var nukeTableau=document.getElementsByClassName('nukestyle')
+      count = count+1;
+      console.log(nukeTableau.length)
+      for(var i=0;i<nukeTableau.length;i++)
+        {
+           /* document.getElementsByClassName('nukestyle')[i].style.top = parseInt(document.getElementsByClassName('nukestyle')[i].style.top) +1+'%';*/
+            nukeTableau[i].style.top= parseInt(nukeTableau[i].style.top)-1+'%';
+
+          if(parseInt(nukeTableau[i].style.top) <=0)
+            {
+              gameArea.removeChild(nukeTableau[i]);
+            } 
+        }
+
+        if(nukeTableau.length==0)
+          {
+            clearInterval(stopNuke);
+            count=0;
+          }
+
+
+
+ 
+ 
+
+    }
+
+
+
+
+
+
+
+
+
+      /*COLLISIONS ALIENS*/
+
+    /*  blockAlienProperties=positionBlockAliens.getBoundingClientRect();
+      console.log(blockAlienProperties);*/
+
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </head>
+  <body>
+    <main>
+      <header>
+        <span id="score">SCORE : 999</span><span id="life">LIVES : 3</span>
+      </header>
+      <div id="gameArea">
+        <div id="blockAliens">
+          
+          <div id="row1" class="alien30"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row2" class="alien20"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row3"class="alien20"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row4" class="alien10"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row5" class="alien10"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+        </div>
+        <div id="missiles"></div>
+        <div id="shooterArea">
+          <div id="shooter"></div>
+        </div>
+      </div>
+      <footer>
+        <span>NEW</span><span>EXIT</span>
+      </footer>
+    </main>
+  </body>
+</html>

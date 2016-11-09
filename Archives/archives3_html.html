@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Space Invaders 404</title>
+    <meta name="description" content="space invader game">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <script>
+
+var positionShooter; 
+var positionMissile;
+
+window.onload = function() 
+  {
+    positionMissile=document.getElementById('missiles');
+    positionShooter=document.getElementById('shooter');
+  }
+     
+
+/*FONCTIONS DU SHOOTER*/
+
+document.onkeydown=ftShooter;
+var shooterLeft=0; 
+
+function ftShooter(object)
+  {
+    /*alert(object.keyCode);*/
+
+    /*detect if left key is pushed*/
+    if (object.keyCode==37)
+      { 
+
+        shooterLeft-=1;
+        console.log(shooterLeft);
+        positionShooter.style.left=shooterLeft+'%';
+        /*collision detection*/
+        if (shooterLeft<=0) 
+          {
+            shooterLeft+=1;
+          }
+
+      }
+
+    /*detect if right key is pushed*/
+    if (object.keyCode==39) 
+      {
+
+        shooterLeft+=1;
+        console.log(shooterLeft);
+        positionShooter.style.left=shooterLeft+'%';
+        /*collision detection*/
+        if (shooterLeft>=95) 
+          {
+            shooterLeft-=1;
+          }
+      }
+  }
+
+
+
+/*FONCTIONS DU MISSILE */
+
+console.log()
+
+document.onkeyup=ftMissile;
+
+var missileStart;
+var stopMissile;
+var missileStartY=85;
+var missileStartX;
+
+function ftMissile(object)
+  {
+    missileStartX=positionShooter.style.left;
+    console.log(missileStartX);
+    if (object.keyCode==38) 
+      {
+        positionMissile.style.left=missileStartX;
+        stopMissile = setInterval(timerMissile, 5);
+      }
+
+  }
+
+
+function timerMissile()
+  {
+    var gameArea = document.getElementById("gameArea");
+    missileStartY-=0.5;
+    positionMissile.style.top=missileStartY+'%';
+
+    if(parseInt(positionMissile.style.top) <=0)
+      {
+        clearInterval(stopMissile);
+        gameArea.removeChild(positionMissile);
+      }    
+  }
+
+
+
+/* CREATION DE MISSILES MULTIPLES (NUKE) */
+
+
+document.onkeypress=ftNuke;
+
+var nukeStartY=85;
+var count=0;
+
+
+function ftNuke(object)
+  {
+    nukeStartX=positionShooter.style.left;
+    if (object.keyCode==32)
+      {
+        var newnuke = document.createElement("div");
+        var gameArea = document.getElementById("gameArea");
+        gameArea.appendChild(newnuke);
+        newnuke.classList.add("nukestyle");
+        newnuke.style.top=nukeStartY+'%';
+        newnuke.style.left=nukeStartX;
+        // console.log(document.getElementsByClassName('nukestyle'));
+       
+        if(count==0)
+          {
+            stopNuke=setInterval(timerNuke, 50);
+          } 
+      }
+  }
+
+
+  function timerNuke()
+    { 
+
+      var gameArea = document.getElementById("gameArea");
+      var nukeTableau=document.getElementsByClassName('nukestyle')
+      count = count+1;
+      console.log(nukeTableau.length)
+      for(var i=0;i<nukeTableau.length;i++)
+        {
+           /* document.getElementsByClassName('nukestyle')[i].style.top = parseInt(document.getElementsByClassName('nukestyle')[i].style.top) +1+'%';*/
+            nukeTableau[i].style.top= parseInt(nukeTableau[i].style.top)-1+'%';
+
+          if(parseInt(nukeTableau[i].style.top) <=0)
+            {
+              gameArea.removeChild(nukeTableau[i]);
+            } 
+        }
+
+        if(nukeTableau.length==0)
+          {
+            clearInterval(stopNuke);
+            count=0;
+          }
+
+
+
+ 
+ 
+
+    }
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </head>
+  <body>
+    <main>
+      <header>
+        <span id="score">SCORE : 999</span><span id="life">LIVES : 3</span>
+      </header>
+      <div id="gameArea">
+        <div id="blockAliens">
+          
+          <div id="row1" class="alien30"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row2" class="alien20"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row3"class="alien20"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row4" class="alien10"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row5" class="alien10"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+        </div>
+        <div id="missiles"></div>
+        <div id="shooterArea">
+          <div id="shooter"></div>
+        </div>
+      </div>
+      <footer>
+        <span>NEW</span><span>EXIT</span>
+      </footer>
+    </main>
+  </body>
+</html>

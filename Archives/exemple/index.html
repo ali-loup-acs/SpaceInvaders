@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--        <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet"> -->
+
+		<meta name="description" content="space invader game">
+		<meta name="author" content="Audinetta">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<title>Space Invaders</title>
+
+
+		<script>
+
+		/*var Objct=document.getElementById('man');*/ /*???*/
+		/*var container=document.getElementById('container');*/
+		var manLeft=0;
+
+		function anim(object){
+			alert(object.keyCode);
+
+
+			/*detect if left key is pushed*/
+			if (object.keyCode==37) {
+				manLeft-=4;
+				console.log(manLeft);
+				document.getElementById('man').style.left=manLeft+'px';
+				/*collision detection*/
+				if (manLeft<=0) {
+					manLeft+=4;
+				}
+
+			}
+
+			/*detect if right key is pushed*/
+			if (object.keyCode==39) {
+				manLeft+=4;
+				document.getElementById('man').style.left=manLeft+'px';
+				/*collision detection*/
+				if (manLeft>=500) {
+					manLeft-=4;
+				}
+			}
+
+
+		}
+
+		document.onkeydown=anim;
+
+
+
+
+		</script>
+
+	</head>
+	<body>
+
+		<header>
+		</header>
+
+
+		<main>
+			<section id="container">
+				<h1>Space Invaders, the original</h1>
+
+				<div id="monstersContainer"> </div>
+
+				<div id="man"> </div>
+				
+			</section>
+		</main>
+
+		<footer>
+		</footer>
+	</body>
+</html>
+

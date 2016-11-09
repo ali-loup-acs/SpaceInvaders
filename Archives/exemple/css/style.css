@@ -1,0 +1,47 @@
+*{
+	box-sizing:border-box;
+	/*margin:0;*/
+}
+
+main {
+	background-color: black;
+	height:;
+
+}
+
+section {
+	height:100%;
+}
+
+h1{
+	color: #FFFFFF;
+	text-align: center;
+}
+
+#container {
+	position:relative;
+	height:585px;
+	width:50%;
+	margin:auto;
+	border: 1px solid black;
+	
+}
+
+#monstersContainer {
+	position:relative;
+	border: 1px solid red;
+	height:70%;
+}
+
+#monsters {
+
+}
+
+#man {
+	position:absolute; /*Uses container for its absolute position*/
+	border: 1px solid blue;
+	height:25px;
+	width:25px;
+	background-color: red;
+	left:0;
+}

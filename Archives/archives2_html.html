@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Space Invader 404</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <span id="score">SCORE : 999</span><span id="life">LIVES : 3</span>
+      </header>
+      <div id="gameArea">
+        <div id="blockAliens">
+          
+          <div id="row1" class="alien30"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row2" class="alien20"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row3"class="alien20"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row4" class="alien10"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+          <div id="row5" class="alien10"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          
+        </div>
+        <div id="missiles"></div>
+        <div id="shooterArea">
+          <div id="shooter"></div>
+        </div>
+      </div>
+      <footer>
+        <span>NEW</span><span>EXIT</span>
+      </footer>
+    </main>
+
+	<script>
+
+
+	document.onkeyup=ftMissile;
+      
+    var missileTop=80;
+    var positionMissile=document.getElementById('missiles');
+    var stopMissile;
+
+
+
+    function ftMissile(object)
+	    {
+			if (object.keyCode==38) 
+	        {
+	        	stopMissile = setInterval(timerMissile, 5);
+	    	}
+
+	    }
+    function timerMissile()
+    	{
+			missileTop-=0.5;
+	   		console.log(missileTop);
+          	positionMissile.style.top=missileTop+'%';
+
+          	if(positionMissile.style.top == "0%")
+	          	{
+		          	clearInterval(stopMissile);
+		          	console.log(positionMissile.style.top)
+	          	}
+          	
+		}
+
+
+
+	</script>
+
+
+  </body>
+</html>
