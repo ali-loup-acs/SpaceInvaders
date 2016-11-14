@@ -1,2 +1,3 @@
 # SpaceInvaders
-test
+testons jusqu'à ce que mort s'en suit ...
+Adieu monde cruel :(
