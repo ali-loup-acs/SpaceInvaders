@@ -1,3 +1,2 @@
 # SpaceInvaders
-testons jusqu'à ce que mort s'en suive...
-Adieu monde cruel :(
+SpaceInvaders with only JS
